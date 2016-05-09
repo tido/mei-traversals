@@ -1,0 +1,9 @@
+/src
+/test
+/resources
+/.idea
+/tmp
+.floo
+.eslint.json
+.babelrc
+*.sublime-*

@@ -2,10 +2,11 @@
   "name": "mei-traversals",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
-    "test:watch": "mocha --compilers js:babel-core/register --watch"
+    "test:watch": "mocha --compilers js:babel-core/register --watch",
+    "prepublish": "babel ./src --out-dir ./lib"
   },
   "author": "",
   "license": "ISC",
