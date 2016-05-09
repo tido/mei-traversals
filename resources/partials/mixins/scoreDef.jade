@@ -1,0 +1,23 @@
+- var keys = { 'treble': { clefLine: 2, clefShape: 'G' }, 'bass': { clefLine: 4, clefShape: 'F' } }
+
+mixin scoreDef(attrs)
+  -
+    attrs = _.assign({}, {
+      meterCount: 4,
+      meterUnit: 4,
+      keyPname: 'c',
+      keyAccid: 'n',
+      keyMode: 'major',
+      clefs: ['treble', 'bass'],
+      staffCount: 1,
+    }, attrs);
+
+  scoreDef(xml:id=_.uniqueId('j'))
+    staffGrp(xml:id=_.uniqueId('j'))
+      - each index in _.range(attrs.staffCount)
+        - var key = keys[attrs.clefs[index]] || keys.treble
+        - var staffN = index + 1
+        staffDef(n=staffN, lines=5, xml:id=_.uniqueId('j'))
+          clef(line=key.clefLine, shape=key.clefShape, xml:id=_.uniqueId('j'))
+          keySig(pname=attrs.keyPname, accid=attrs.keyAccid, mode=attrs.keyMode, xml:id=_.uniqueId('j'))
+          meterSig(count=attrs.meterCount, unit=attrs.meterUnit, xml:id=_.uniqueId('j'))
