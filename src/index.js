@@ -1,6 +1,6 @@
 import { isArray, mapValues } from 'lodash/fp';
 import lodash from 'lodash';
-import { useCache } from './util/decorators';
+import { cacheTraversals, catchTraversalErrors } from './util/decorators';
 import conditionalTraversal from './util/conditionalTraversal';
 import * as accidental from './accidental';
 import * as ancestorOfType from './ancestorOfType';
@@ -28,13 +28,13 @@ import { getAncestors, getDescendants } from './basic';
 
 const _ = lodash.runInContext();
 const mapValuesWithKey = mapValues.convert({ cap: false });
-const setupConditionals = mapValuesWithKey((value, key) =>
+const setupCondtionalTraversals = mapValuesWithKey((value, key) =>
   isArray(value)
     ? conditionalTraversal(value, key)
     : value
 );
 
-const traversals = _.mixin(useCache(setupConditionals({
+const rawTraversals = setupCondtionalTraversals({
   ancestors: getAncestors,
   descendants: getDescendants,
   ...accidental,
@@ -59,6 +59,6 @@ const traversals = _.mixin(useCache(setupConditionals({
   ...text,
   ...timeSignatures,
   ...tstamp,
-})));
+});
 
-export default traversals;
+export default _.mixin(cacheTraversals(catchTraversalErrors(rawTraversals)));

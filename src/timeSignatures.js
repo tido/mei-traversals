@@ -1,7 +1,7 @@
 import hasTagName from './util/hasTagName';
 import { groupBy, assignWith, concat } from 'lodash/fp';
 import _ from '.';
-import isAbsoluteTstampInMeasure from './isAbsoluteTstampInMeasure';
+import isAbsoluteTstampInMeasure from './util/isAbsoluteTstampInMeasure';
 
 export const timeSignatureChangesByTstamp =
   [{

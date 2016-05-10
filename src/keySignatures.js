@@ -3,7 +3,7 @@ import {
   flow, map, groupBy, sortBy, keys, findLast, identity, concat, assignWith, reduce,
 } from 'lodash/fp';
 import _ from '.';
-import isAbsoluteTstampInMeasure from './isAbsoluteTstampInMeasure';
+import isAbsoluteTstampInMeasure from './util/isAbsoluteTstampInMeasure';
 
 const getKeysSorted = flow(keys, map(Number), sortBy(identity));
 

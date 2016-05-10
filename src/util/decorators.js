@@ -1,14 +1,13 @@
 import { padEnd, isArray, mapValues, isPlainObject } from 'lodash/fp';
 
-const decorateTraversals = (decorator) => (traversals) => {
-  Object.keys(traversals).forEach(traversalName => {
-    const traversalFunc = traversals[traversalName];
-    traversals[traversalName] = decorator(traversalFunc, traversalName);
-  });
-  return traversals;
-};
+const mapValuesWithKey = mapValues.convert({ cap: false });
 
-export const catchErrors = decorateTraversals((traversalFunc, traversalName) => (domElement) => {
+const decorateTraversals =
+  (decorator) => (traversals) =>
+    mapValuesWithKey(decorator, traversals);
+
+// Wrap each traversal in a try/catch
+export const catchTraversalErrors = decorateTraversals((traversalFunc, traversalName) => (domElement) => {
   try {
     return traversalFunc(domElement);
   } catch (e) {
@@ -16,22 +15,30 @@ export const catchErrors = decorateTraversals((traversalFunc, traversalName) => 
   }
 });
 
-// Caches traversal results on the elements themselves.
-// Not the most elegant thing, but it's super simple and efficient
-export const useCache = decorateTraversals((traversalFunc, traversalName) => (domElement) => {
+// Caches traversal results on the DOM Element nodes within an object called
+// `__traversalCache` by the name of the traversal. ie: The result of
+// `mei.staff(domElement)` is stored under `domElement.__traversalCache.staff`
+//
+// There is no cache invalidation mechanism, so using this assumes that your XML
+// Document does not get modified.
+//
+// This relies on mutating an object we don't own, so it's not the most elegant thing,
+// but it's super simple and efficient
+export const cacheTraversals = decorateTraversals((traversalFunc, traversalName) => (domElement) => {
   // Ensure cache exists
-  if (!domElement.__tidoCache) domElement.__tidoCache = {};
+  if (!domElement.__traversalCache) domElement.__traversalCache = {};
 
   // Check for cache hit
-  const cachedResult = domElement.__tidoCache[traversalName];
+  const cachedResult = domElement.__traversalCache[traversalName];
   if (cachedResult) return cachedResult;
 
   // In case of cache miss, execute traversal and cache result
   const result = traversalFunc(domElement);
-  domElement.__tidoCache[traversalName] = result;
+  domElement.__traversalCache[traversalName] = result;
   return result;
 });
 
+// FIXME: This is a pretty inadequate stringifier
 const toString = (input) => {
   if (input === null || input.nodeType) {
     return input;
@@ -44,7 +51,9 @@ const toString = (input) => {
   }
 };
 
-export const useLog = decorateTraversals((traversalFunc, traversalName) => (domElement) => {
+// Use this decorator to provide very verbose logging
+// FIXME: `console.groupCollapsed` not supported in node
+export const logTraversals = decorateTraversals((traversalFunc, traversalName) => (domElement) => {
   /* eslint-disable no-console */
   const prettyElementId = `${domElement.tagName}#${domElement.getAttribute('xml:id')}`;
   const logGroup = padEnd(30, `Traversal: ${traversalName}`) + `Element: ${prettyElementId}`;
