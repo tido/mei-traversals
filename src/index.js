@@ -1,6 +1,6 @@
-import { isArray, mapValues } from 'lodash/fp';
+import { flow, isArray, mapValues, noop } from 'lodash/fp';
 import lodash from 'lodash';
-import { cacheTraversals, catchTraversalErrors } from './util/decorators';
+import { cacheTraversals, catchTraversalErrors, logTraversals } from './util/decorators';
 import conditionalTraversal from './util/conditionalTraversal';
 import * as accidental from './accidental';
 import * as ancestorOfType from './ancestorOfType';
@@ -61,4 +61,13 @@ const rawTraversals = setupCondtionalTraversals({
   ...tstamp,
 });
 
-export default _.mixin(cacheTraversals(catchTraversalErrors(rawTraversals)));
+const traversals = _.mixin(cacheTraversals(catchTraversalErrors(rawTraversals)));
+
+traversals.config = ({ log = false, cache = true, tryCatch = true }) =>
+  _.mixin(flow(
+    tryCatch ? catchTraversalErrors : noop,
+    cache ? cacheTraversals : noop,
+    log ? logTraversals : noop,
+  )(rawTraversals));
+
+export default traversals;
