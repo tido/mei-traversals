@@ -51,32 +51,25 @@ const setupConditionals = mapValuesWithKey((value, key) =>
 
 const getNextLayerDurationalInAnyMeasure = (durational) => {
   const nextDurationalInLayer = traversals.nextDurational(durational);
-  if (nextDurationalInLayer) {
-    return nextDurationalInLayer;
-  }
+
+  if (nextDurationalInLayer) return nextDurationalInLayer;
 
   const measure = traversals.measure(durational);
   const nextMeasure = traversals.nextMeasure(measure);
 
-  if (!nextMeasure) {
-    return null;
-  }
+  if (!nextMeasure) return null;
 
   const startStaffN = traversals.n(traversals.staff(durational));
   const isSameStaff = (staff) => traversals.n(staff) === startStaffN;
   const nextStaff = find(isSameStaff, traversals.staffs(nextMeasure));
 
-  if (!nextStaff) {
-    return null;
-  }
+  if (!nextStaff) return null;
 
   const startLayerN = traversals.n(traversals.layer(durational));
   const isSameLayer = (layer) => traversals.n(layer) === startLayerN;
   const nextLayer = find(isSameLayer, traversals.layers(nextStaff));
 
-  if (!nextLayer) {
-    return null;
-  }
+  if (!nextLayer) return null;
 
   const layerDescendants = traversals.descendants(nextLayer);
   const firstLayerDurational = find(isDurational, layerDescendants);
