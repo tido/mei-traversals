@@ -2,7 +2,7 @@ import hasTagName from './util/hasTagName';
 import { getAttribute } from './util/attribute';
 import _ from '.';
 
-export const getFirst =
+export const accidental =
   [{
     condition: hasTagName(['keySig', 'accid']),
     traversal: getAttribute('accid'),
@@ -21,7 +21,7 @@ export const getFirst =
     },
   }];
 
-export const getAll =
+export const accidentals =
   [{
     condition: hasTagName(['keySig', 'accid', 'note']),
     traversal: (element) => [_.accidental(element)],

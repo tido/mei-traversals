@@ -1,4 +1,5 @@
 {
+
   "name": "tido-mei-traversals",
   "version": "0.1.0",
   "description": "Semantic MEI traversal functions in JavaScript",

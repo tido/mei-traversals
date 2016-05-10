@@ -131,7 +131,7 @@ const combineSubsequentTexts = (result, component) => {
 
 const isText = (component) => !!component && component.type === 'text';
 
-export const components =
+export const textComponents =
   [{
     condition: hasTagName('dynam'),
     traversal: getTextComponents(dynamTextToGlyphName),

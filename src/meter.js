@@ -30,13 +30,13 @@ export const actualMeterCount =
     },
   }];
 
-export const count =
+export const meterCount =
   [{
     condition: hasTagName('measure'),
     traversal: () => 4, // FIXME: Get actual meter count
   }];
 
-export const unit =
+export const meterUnit =
   [{
     condition: hasTagName('measure'),
     traversal: () => 4, // FIXME: Get actual meter unit

@@ -1,5 +1,6 @@
 import lodash, {
-  negate, allPass, anyPass, constant, flow, keys, map, sortBy, concat, identity,
+  first, last, negate, allPass, anyPass, constant,
+  flow, keys, map, sortBy, concat, identity, split,
 } from 'lodash/fp';
 import { hasAttribute, getAttribute } from './util/attribute';
 import { findAncestor, findPrevious, findNext } from './basic';
@@ -11,7 +12,7 @@ const isDurational = allPass([
   negate(hasAttribute('grace')),
 ]);
 
-export const get =
+export const tstamp =
   [{
     condition: hasAttribute('tstamp'),
     traversal: flow(getAttribute('tstamp'), Number),
@@ -66,6 +67,21 @@ export const get =
     traversal: constant(1),
   }];
 
+export const startTstamp = tstamp;
+export const endTstamp = flow(
+  getAttribute('tstamp2'),
+  split('m+'),
+  last,
+  Number
+);
+
+export const measureOffset = flow(
+  getAttribute('tstamp2'),
+  split('m+'),
+  first,
+  Number
+);
+
 /*
 Example of absolute tstamps in a 4/4 meter:
 
@@ -86,7 +102,7 @@ $cl5 = clef following m1q4 in the same layer
 $cl6 = clef between measures 1 und 2
 $cl7 = clef at the end of measure 1
 */
-export const absolute = [{
+export const absoluteTstamp = [{
   condition: hasTagName('measure'),
   traversal: (measure) => {
     const previousMeasure = findPrevious(hasTagName('measure'))(measure);
@@ -157,7 +173,7 @@ export const durationalsAtStaffTstamp = (element) =>
     .durationalsByTstamp()
     .get(_.tstamp(element));
 
-export const getAllTstampsInOrder = (measure) => flow(
+export const allTstampsInOrder = (measure) => flow(
   _.durationalsByTstamp,
   keys,
   map(Number),
