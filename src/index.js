@@ -63,7 +63,8 @@ const rawTraversals = setupCondtionalTraversals({
 
 const traversals = _.mixin(cacheTraversals(catchTraversalErrors(rawTraversals)));
 
-traversals.config = ({ log = false, cache = true, tryCatch = true }) =>
+// Allows you to change the traversal decorators at runtime
+traversals.configure = ({ log = false, cache = true, tryCatch = true }) =>
   _.mixin(flow(
     tryCatch ? catchTraversalErrors : noop,
     cache ? cacheTraversals : noop,
