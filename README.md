@@ -12,9 +12,9 @@ Note that the API is currently considered unstable, and subject to change.
 
 ## Usage
 
-By default, this library operates under the assumption the MEI is immutable. To change this see
+By default, this library operates under the assumption the MEI is immutable. To change this see the next section on configuration.
 
-Each function gets added to a pristine lodash instance (using `_.runInContext` and `_.mixin`) and that instance is then exported. This is a heavy dependency.
+Each function gets added to a pristine [lodash](https://github.com/lodash/lodash) instance (using `_.runInContext` and `_.mixin`) and that instance is exported. This is a heavy dependency.
 
 The main power of this library comes from multiple dispatch functions which allow us to navigate the MEI using common musical semantics without exposing the MEI structure. You shouldn't have to worrry about the fact that some elements are hierarchically related, while others are related by attribute.
 
@@ -33,7 +33,30 @@ Consider the following MEI snippets:
 <measure/>
 ```
 
-In the first example, calling `mei.staff` with the `<note/>` will return the parent `<staff>`. In the second example, Calling `mei.staff` with the `<dynam staff="1"/>` will return the `<staff>` which has a matching `n` attribute.
+In the first example, calling `traversals.staff` with the `<note/>` will return the parent `<staff>`. In the second example, Calling `traversals.staff` with the `<dynam staff="1"/>` will return the `<staff>` which has a matching `n` attribute.
+
+## Configuration
+
+To configure the traversals, use the `.configure(options)` function provided on the main traversals object.
+
+* `options`
+  * `cache`
+    - default: `true`
+    - If `true`, the result of each function is cached on the associated input DOM element.
+  * `log`
+    - default: `false`
+    - If `true`, each traversal is logged with the input element, output data, and duration
+  * `tryCatch`
+    - default: `true`
+    - If `true`, each traversal is wrapped in a `try catch`
+
+##### Example:
+
+```javascript
+import traversals from 'mei-traversals';
+
+traversals.configure({ log: true, cache: true, tryCatch: true });
+```
 
 ## Performance
 
@@ -42,7 +65,7 @@ No benchmarks yet.
 ## Example
 
 ```javascript
-import mei from 'mei-traversals';
+import traversals from 'mei-traversals';
 import { DOMParser } from 'xmldom';
 
 const domParser = new DOMParser();
@@ -62,7 +85,8 @@ const doc = domParser.parseFromString(`
   </mei>
 `)
 
-const staffN = mei(doc).notes().last().staff().n().value();
+const notes = traversals.notes(doc);
+const staffN = traversals.staffN(notes[1]);
 console.log(staffN); // => 1
 ```
 
