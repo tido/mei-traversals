@@ -2,13 +2,13 @@
 
 Collection of single dispatch and multiple dispatch functions to traverse the MEI structure.
 
-The type signature for all traversals are element -> Any`
+The type signature for all traversals are `element -> any`
 
-#### NOTE: This is an unstable moving target.
+Note that the API is currently considered unstable, and subject to change.
 
 ## Usage
 
-Note that assumption is that the MEI is immutable.
+The library operates under the assumption the MEI is immutable.
 
 ## Performance
 
@@ -70,7 +70,7 @@ npm install --save mei-traversals
 
 ## Compiling from source
 
-If you are not installing from `npm`, you must compile the source on your owwn. To compile, run the following command:
+If you are not installing from `npm`, you can compile the source on your own. To compile, run the following command:
 
 ```
 npm run prepublish

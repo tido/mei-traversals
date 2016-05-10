@@ -1,15 +1,20 @@
 {
-  "name": "mei-traversals",
-  "version": "1.0.0",
-  "description": "",
+
+  "name": "tido-mei-traversals",
+  "version": "0.1.0",
+  "description": "Semantic MEI traversal functions in JavaScript",
   "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tido/mei-traversals.git"
+  },
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
     "test:watch": "mocha --compilers js:babel-core/register --watch",
     "prepublish": "babel ./src --out-dir ./lib"
   },
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "lodash": "^4.12.0"
   },
