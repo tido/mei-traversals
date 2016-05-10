@@ -70,10 +70,10 @@ To configure the traversals, use the `.configure(options)` function provided on 
 
 * `options`
   * `cache`
-    - If `true`, the result of each function is cached on the associated input DOM element.
+    - If `true`, the result of each traversal is cached on the input DOM element.
     - default: `true`
   * `log`
-    - If `true`, each traversal is logged with the input element, output data, and duration
+    - If `true`, each traversal is logged with the input DOM element, output data, and duration
     - default: `false`
   * `tryCatch`
     - If `true`, each traversal is wrapped in a `try catch`
