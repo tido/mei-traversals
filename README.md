@@ -54,6 +54,7 @@ const doc = domParser.parseFromString(`
         <staff n="1">
           <layer>
             <note />
+            <note />
           </layer>
         </staff>
       </measure>
@@ -61,7 +62,7 @@ const doc = domParser.parseFromString(`
   </mei>
 `)
 
-const staffN = mei(doc).notes().first().staff().n().value();
+const staffN = mei(doc).notes().last().staff().n().value();
 console.log(staffN); // => 1
 ```
 
