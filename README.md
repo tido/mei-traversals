@@ -70,7 +70,7 @@ npm install --save mei-traversals
 
 ## Compiling from source
 
-If you are not installing from `npm`, you must compile the source on your owwn. To compile, run the following command:
+If you are not installing from `npm`, you can compile the source on your own. To compile, run the following command:
 
 ```
 npm run prepublish
