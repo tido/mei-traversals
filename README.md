@@ -4,7 +4,7 @@ Collection of single dispatch and multiple dispatch functions to traverse the ME
 
 The type signature for all traversals are `element -> any`
 
-#### NOTE: This is an unstable moving target.
+Note that the API is currently considered unstable, and subject to change.
 
 ## Usage
 
