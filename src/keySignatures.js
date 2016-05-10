@@ -27,7 +27,7 @@ export const keySignatureChangesByTstamp =
         .value(),
   }];
 
-export const keySignatureByTstamp =
+export const keySignaturesByTstamp =
   [{
     condition: hasTagName('measure'),
     traversal: (measure) =>

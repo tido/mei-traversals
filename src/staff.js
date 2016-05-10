@@ -115,7 +115,7 @@ export const staffLines = [{
       .value(),
 }];
 
-export const isMultiVoice = [{
+export const isMultivoice = [{
   condition: hasTagName('staff'),
   traversal: (element) => _(element).layers().size() > 1,
 }];
