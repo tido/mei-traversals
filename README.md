@@ -35,34 +35,7 @@ Consider the following MEI snippets:
 
 In the first example, calling `traversals.staff` with the `<note/>` will return the parent `<staff>`. In the second example, Calling `traversals.staff` with the `<dynam staff="1"/>` will return the `<staff>` which has a matching `n` attribute.
 
-## Configuration
-
-To configure the traversals, use the `.configure(options)` function provided on the main traversals object.
-
-* `options`
-  * `cache`
-    - If `true`, the result of each function is cached on the associated input DOM element.
-    - default: `true`
-  * `log`
-    - If `true`, each traversal is logged with the input element, output data, and duration
-    - default: `false`
-  * `tryCatch`
-    - If `true`, each traversal is wrapped in a `try catch`
-    - default: `true`
-
-##### Example:
-
-```javascript
-import traversals from 'mei-traversals';
-
-traversals.configure({ log: true, cache: true, tryCatch: true });
-```
-
-## Performance
-
-No benchmarks yet.
-
-## Example
+##### Example
 
 ```javascript
 import traversals from 'mei-traversals';
@@ -89,6 +62,34 @@ const notes = traversals.notes(doc);
 const staffN = traversals.staffN(notes[1]);
 console.log(staffN); // => 1
 ```
+
+
+## Configuration
+
+To configure the traversals, use the `.configure(options)` function provided on the main traversals object.
+
+* `options`
+  * `cache`
+    - If `true`, the result of each function is cached on the associated input DOM element.
+    - default: `true`
+  * `log`
+    - If `true`, each traversal is logged with the input element, output data, and duration
+    - default: `false`
+  * `tryCatch`
+    - If `true`, each traversal is wrapped in a `try catch`
+    - default: `true`
+
+##### Example:
+
+```javascript
+import traversals from 'mei-traversals';
+
+traversals.configure({ log: true, cache: true, tryCatch: true });
+```
+
+## Performance
+
+No benchmarks yet.
 
 ## Installation
 
