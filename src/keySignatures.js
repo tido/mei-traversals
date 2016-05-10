@@ -10,7 +10,7 @@ const getKeysSorted = flow(keys, map(Number), sortBy(identity));
 const findClosestKeySignatureTstamp = (keySignatureTstamps, tstamp) =>
   findLast(timeSignatureTstamp => timeSignatureTstamp <= tstamp, keySignatureTstamps);
 
-export const changesByTstamp =
+export const keySignatureChangesByTstamp =
   [{
     condition: hasTagName('measure'),
     traversal: (measure) =>
@@ -27,7 +27,7 @@ export const changesByTstamp =
         .value(),
   }];
 
-export const byTstamp =
+export const keySignatureByTstamp =
   [{
     condition: hasTagName('measure'),
     traversal: (measure) =>
@@ -68,7 +68,7 @@ export const byTstamp =
   }];
 
 // An absolute tstamp is the tstamp relative to the beginning of the score
-export const byAbsoluteTstamp =
+export const keySignaturesByAbsoluteTstamp =
   [{
     condition: hasTagName('score'),
     traversal: (score) => (

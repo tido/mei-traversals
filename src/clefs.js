@@ -8,7 +8,7 @@ const getKeysSorted = flow(keys, map(Number), sortBy(identity));
 const findClosestClefTstamp = (clefTstamps, tstamp) =>
   findLast(clefTstamp => clefTstamp <= tstamp, clefTstamps);
 
-export const changesByTstamp =
+export const clefChangesByTstamp =
   [{
     condition: hasTagName('measure'),
     traversal: (measure) => {
@@ -41,7 +41,7 @@ export const changesByTstamp =
     },
   }];
 
-export const byTstamp =
+export const clefsByTstamp =
   [{
     condition: hasTagName('measure'),
     traversal: (measure) =>
@@ -82,7 +82,7 @@ export const byTstamp =
   }];
 
 // An absolute tstamp is the tstamp relative to the beginning of the score
-export const byAbsoluteTstamp =
+export const clefsByAbsoluteTstamp =
   [{
     condition: hasTagName('score'),
     traversal: (score) => (

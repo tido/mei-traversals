@@ -4,7 +4,7 @@ import { hasAttribute, getAttribute } from './util/attribute';
 import hasTagName from './util/hasTagName';
 import _ from '.';
 
-export const count =
+export const dots =
   [{
     condition: findAncestor(hasTagName('chord')),
     traversal: (element) => _(element).chord().dots().value(),

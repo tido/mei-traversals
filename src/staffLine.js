@@ -25,7 +25,7 @@ function getStaffLine(pitch, clef) {
   return staffLine;
 }
 
-export const get =
+export const staffLine =
   [{
     condition: hasAttribute('loc'),
     traversal: flow(getAttribute('loc'), (loc) => Number(loc) / 2),

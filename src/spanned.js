@@ -7,7 +7,7 @@ import _ from '.';
 
 const isDurational = allPass([hasAttribute('dur'), negate(hasAttribute('grace'))]);
 
-export const durationals =
+export const spannedDurationals =
   [{
     condition: hasAttributes(['tstamp', 'tstamp2', 'layer']),
     traversal: (element) => {
@@ -64,7 +64,7 @@ export const durationals =
     },
   }];
 
-export const measures = (element) => {
+export const spannedMeasures = (element) => {
   const measureOffset = _.measureOffset(element);
   const result = _(element)
     .score()

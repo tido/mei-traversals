@@ -6,7 +6,7 @@ export const altsym = flow(getAttribute('altsym'), split('#'), last);
 export const isInverted = flow(getAttribute('form'), eq('inv'));
 export const isLong = flow(getAttribute('long'), eq('true'));
 
-export const get = [{
+export const glyphName = [{
   condition: hasAttribute('altsym'),
   traversal: altsym,
 }, {

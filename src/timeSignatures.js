@@ -3,7 +3,7 @@ import { groupBy, assignWith, concat } from 'lodash/fp';
 import _ from '.';
 import isAbsoluteTstampInMeasure from './isAbsoluteTstampInMeasure';
 
-export const changesByTstamp =
+export const timeSignatureChangesByTstamp =
   [{
     condition: hasTagName('measure'),
     traversal: (measure) =>
@@ -21,7 +21,7 @@ export const changesByTstamp =
   }];
 
 // An absolute tstamp is the tstamp relative to the beginning of the score
-export const byAbsoluteTstamp =
+export const timeSignaturesByAbsoluteTstamp =
   [{
     condition: hasTagName('score'),
     traversal: (score) =>

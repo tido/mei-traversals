@@ -4,7 +4,7 @@ import { negate } from 'lodash/fp';
 import { hasAttribute, getAttribute } from './util/attribute';
 import _ from '.';
 
-export const direction =
+export const stemDir =
   [{
     condition: findAncestor(hasTagName('chord')),
     traversal: (element) => _(element).chord().stemDir().value(),
