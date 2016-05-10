@@ -17,7 +17,6 @@ import * as layer from './layer';
 import * as measure from './measure';
 import * as meter from './meter';
 import * as notes from './notes';
-import * as spanned from './spanned';
 import * as spanning from './spanning';
 import * as staff from './staff';
 import * as staffLine from './staffLine';
@@ -53,7 +52,6 @@ const traversals = _.mixin(useCache(setupConditionals({
   ...measure,
   ...meter,
   ...notes,
-  ...spanned,
   ...spanning,
   ...staff,
   ...staffLine,
