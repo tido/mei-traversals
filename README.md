@@ -8,7 +8,7 @@ Note that the API is currently considered unstable, and subject to change.
 
 ## Usage
 
-Note that assumption is that the MEI is immutable.
+The library operates under the assumption the MEI is immutable.
 
 ## Performance
 
