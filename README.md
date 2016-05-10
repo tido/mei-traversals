@@ -2,7 +2,7 @@
 
 Collection of single dispatch and multiple dispatch functions to traverse the MEI structure.
 
-The type signature for all traversals are element -> Any`
+The type signature for all traversals are `element -> any`
 
 #### NOTE: This is an unstable moving target.
 
