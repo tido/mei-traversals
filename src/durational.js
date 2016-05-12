@@ -1,4 +1,4 @@
-import { flow, allPass, negate } from 'lodash/fp';
+import { flow, allPass, negate, find } from 'lodash/fp';
 import { findPrevious, findNext, findAncestor } from './basic';
 import { hasAttribute, getAttribute } from './util/attribute';
 import hasTagName from './util/hasTagName';
