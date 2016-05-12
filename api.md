@@ -61,7 +61,7 @@
   - `nextDurational`
   - `nextLayerDurationalInAnyMeasure`
 * glyphName
-  - `altsym`
+  - `glyphname`
   - `isInverted`
   - `isLong`
   - `glyphName`
