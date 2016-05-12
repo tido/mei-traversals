@@ -2,13 +2,13 @@ import { allPass, constant, flow, split, last, eq } from 'lodash/fp';
 import hasTagName from './util/hasTagName';
 import { hasAttribute, getAttribute } from './util/attribute';
 
-export const altsym = flow(getAttribute('altsym'), split('#'), last);
+export const glyphname = flow(getAttribute('glyphname'), split('#'), last);
 export const isInverted = flow(getAttribute('form'), eq('inv'));
 export const isLong = flow(getAttribute('long'), eq('true'));
 
 export const glyphName = [{
-  condition: hasAttribute('altsym'),
-  traversal: altsym,
+  condition: hasAttribute('glyphname'),
+  traversal: glyphname,
 }, {
   // NB: a 'regular' mordent in MEI is an 'inverted' mordent in SMuFL and reverse
   condition: allPass([hasTagName('mordent'), isInverted]),
