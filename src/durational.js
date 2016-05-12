@@ -29,7 +29,7 @@ export const durational = [{
 export const previousDurational = findPrevious(isDurational, hasTagName('layer'));
 export const nextDurational = findNext(isDurational, hasTagName('layer'));
 
-export const nextLayerDurationalInAnyMeasure = (durational) => {
+export const nextDurationalInAnyMeasure = (durational) => {
   const nextDurationalInLayer = _.nextDurational(durational);
 
   if (nextDurationalInLayer) return nextDurationalInLayer;
