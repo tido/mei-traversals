@@ -505,12 +505,4 @@ describe('tstamp traversals', () => {
       });
     });
   });
-
-  describe('durationalsAtStaffTstamp', () => {
-    describe('given an element with a tstamp', () => {
-      it('returns an array');
-      it('each value in the array is an element with the same tstamp');
-      it('each value in the array is an element with the same staff');
-    });
-  });
 });
