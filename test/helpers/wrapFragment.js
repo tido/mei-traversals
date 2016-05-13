@@ -1,7 +1,7 @@
 import path from 'path';
 import jade from 'jade';
 import _, { assign, includes } from 'lodash';
-import { validateSync } from 'mei-validation-js';
+import { validateSync } from 'tido-mei-validation';
 
 const globalValidation = includes(process.argv, '--validate');
 
