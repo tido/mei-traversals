@@ -10,7 +10,7 @@
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
     "test:watch": "mocha --compilers js:babel-core/register --watch",
-    "prepublish": "babel ./src --out-dir ./lib"
+    "prepublish": "npm test && babel ./src --out-dir ./lib"
   },
   "author": "Tido",
   "license": "Apache-2.0",
