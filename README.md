@@ -16,7 +16,7 @@ By default, this library operates under the assumption the MEI is immutable. To 
 
 Each function gets added to a pristine [lodash](https://github.com/lodash/lodash) instance (using `_.runInContext` and `_.mixin`) and that instance is exported. This is a heavy dependency.
 
-The main power of this library comes from multiple dispatch functions which allow us to navigate the MEI using common musical semantics without exposing the MEI structure. You shouldn't have to worrry about the fact that some elements are hierarchically related, while others are related by attribute.
+The main power of this library comes from multiple dispatch functions which allow us to navigate the MEI using common musical semantics without exposing the MEI structure. You shouldn't have to worry about the fact that some elements are hierarchically related, while others are related by attribute.
 
 Consider the following MEI snippets:
 
@@ -45,16 +45,20 @@ const domParser = new DOMParser();
 
 const doc = domParser.parseFromString(`
   <mei>
-    <score>
-      <measure>
-        <staff n="1">
-          <layer>
-            <note />
-            <note />
-          </layer>
-        </staff>
-      </measure>
-    </score>
+    <music>
+      <mdiv>
+        <score>
+          <measure>
+            <staff n="1">
+              <layer>
+                <note />
+                <note />
+              </layer>
+            </staff>
+          </measure>
+        </score>
+      </mdiv>
+    </music>
   </mei>
 `)
 
@@ -82,7 +86,7 @@ To configure the traversals, use the `.configure(options)` function provided on 
 ##### Example:
 
 ```javascript
-import traversals from 'mei-traversals';
+import traversals from 'tido-mei-traversals';
 
 traversals.configure({ log: true, cache: true, tryCatch: true });
 ```
@@ -93,10 +97,8 @@ No benchmarks yet.
 
 ## Installation
 
-(Not actually published yet so this won't work...)
-
 ```
-npm install --save mei-traversals
+npm install --save tido-mei-traversals
 ```
 
 ## Compiling from source
