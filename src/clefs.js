@@ -1,4 +1,5 @@
 import hasTagName from './util/hasTagName';
+import toCompactArray from './util/toCompactArray';
 import {
   flow, map, groupBy, sortBy, keys, concat, findLast, identity, assignWith, filter, reduce,
 } from 'lodash/fp';
@@ -16,7 +17,7 @@ export const clefChangesByTstamp =
         .score()
         .clefsByAbsoluteTstamp()
         .values()
-        .reduce(assignWith(concat));
+        .reduce(assignWith(toCompactArray));
 
       const measureStartAbsoluteTstamp = _.absoluteTstamp(measure);
       const measureEndAbsoluteTstamp = measureStartAbsoluteTstamp + _.actualMeterCount(measure);
