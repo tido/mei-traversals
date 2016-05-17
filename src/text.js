@@ -136,7 +136,7 @@ export const textComponents =
     condition: hasTagName('dynam'),
     traversal: getTextComponents(dynamTextToGlyphName),
   }, {
-    condition: hasTagName('fing'),
+    condition: hasTagName(['fing', 'tempo', 'dir']),
     traversal: getTextComponents({}),
   }, {
     condition: hasTagName('fingGrp'),
