@@ -73,13 +73,10 @@ const componentsFromChildNode = curry((textToGlyphMap, font, node) => {
   return [];
 });
 
-const glyphNameFromSymbol = (element) => {
-  const ref = element.getAttribute('ref');
-  if (typeof ref === 'string' && ref.substr(0, 1) === '#') {
-    return ref.substr(1);
-  }
-  return null;
-};
+const glyphNameFromSymbol = (element) =>
+  element.hasAttribute('glyphname')
+    ? element.getAttribute('glyphname')
+    : null;
 
 const componentsFromString = (textToGlyphMap, font, text) => flow(
   (text) => text.split(/(?=[\s,])/),
