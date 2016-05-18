@@ -152,8 +152,10 @@ export const textComponents =
             group.push({ type: 'glyph', glyphName });
           }
         });
+        return reduce(combineSubsequentTexts, [], flatten(textComponentGroups));
       }
-      return reduce(combineSubsequentTexts, [], flatten(textComponentGroups));
+
+      return flatten(textComponentGroups);
     },
   }, {
     condition: hasTagName('syl'),
