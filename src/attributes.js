@@ -24,4 +24,4 @@ export const sym = getAttribute('sym');
 export const shape = getAttribute('shape');
 export const place = getAttribute('place');
 export const dis = getAttribute('dis');
-export const disPlace = getAttribute('disPlace');
+export const disPlace = getAttribute('dis.place');
