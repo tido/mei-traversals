@@ -11,6 +11,7 @@ export const scoreDefs = getElementsByTagName('scoreDef');
 export const slurs = getElementsByTagName('slur');
 export const ties = getElementsByTagName('tie');
 export const hairpins = getElementsByTagName('hairpin');
+export const octaves = getElementsByTagName('octave');
 export const verses = getElementsByTagName('verse');
 export const syllables = getElementsByTagName('syl');
 export const staffDefs = getElementsByTagName('staffDef');
