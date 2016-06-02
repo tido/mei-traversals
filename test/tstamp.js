@@ -6,6 +6,11 @@ import { getElementsByTagName } from '../src/basic';
 import _ from '../src';
 
 const durationsToNotes = map((dur) => ({ $: 'note', dur }));
+const durationsWithDotsToNotes = map(({ dur, dots }) =>
+  dots
+    ? { $: 'note', dur, dots }
+    : { $: 'note', dur }
+);
 
 const getTstamp = (fragment, targetTagName, index = 0) =>
   flow(
@@ -70,6 +75,29 @@ describe('tstamp traversals', () => {
         const durString = durations.join(' ');
         it(`returns [${tstampString}] for the respective durations of [${durString}]`, () => {
           const mei = getMEI('inLayer', durationsToNotes(durations));
+          const notes = getElementsByTagName('note', mei);
+          assert.deepEqual(notes.map(_.tstamp), expectedTstamps);
+        });
+      });
+    });
+
+    describe('given a sequence of partially dotted notes', () => {
+      const testData = [
+        {
+          input: [{ dur: 8, dots: 1 }, { dur: 16, dots: 0 }, { dur: 8, dots: 1 }, { dur: 16, dots: 0 }],
+          expectedTstamps: [1, 1.75, 2, 2.75],
+        },
+        {
+          input: [{ dur: 8, dots: 2 }, { dur: 32, dots: 0 }, { dur: 8, dots: 2 }, { dur: 32, dots: 0 }],
+          expectedTstamps: [1, 1.875, 2, 2.875],
+        },
+      ];
+
+      testData.forEach(({ input, expectedTstamps }) => {
+        const tstampString = expectedTstamps.join(' ');
+        const durString = input.map(({ dur, dots }) => `${dur}-${dots}`).join(' ');
+        it(`returns [${tstampString}] for the respective input of [${durString}]`, () => {
+          const mei = getMEI('inLayer', durationsWithDotsToNotes(input));
           const notes = getElementsByTagName('note', mei);
           assert.deepEqual(notes.map(_.tstamp), expectedTstamps);
         });

@@ -12,6 +12,16 @@ const isDurational = allPass([
   negate(hasAttribute('grace')),
 ]);
 
+const durationWithDots = (dur, dots) => {
+  let durationWithDots = dur;
+  let dotDuration = dur;
+  while (dots--) {
+    dotDuration /= 2;
+    durationWithDots += dotDuration;
+  }
+  return durationWithDots;
+};
+
 export const tstamp =
   [{
     condition: hasAttribute('tstamp'),
@@ -25,7 +35,9 @@ export const tstamp =
       const previousDurational = _.previousDurational(element);
       const meterUnit = _(element).measure().meterUnit().value();
       const previousTstamp = _.tstamp(previousDurational);
-      return previousTstamp + (meterUnit / _.dur(previousDurational));
+      const previousDuration = meterUnit / _.dur(previousDurational);
+      const previousDots = _.dots(previousDurational);
+      return previousTstamp + durationWithDots(previousDuration, previousDots);
     },
   }, {
     condition: hasAttribute('grace'),
