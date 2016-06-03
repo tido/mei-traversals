@@ -1,6 +1,7 @@
 import {
   flatMap, constant, negate, allPass, lte, gte, flow, filter,
   findIndex, slice, eq, cond, first, last, includes, isEmpty,
+  dropWhile, dropRightWhile,
 } from 'lodash/fp';
 import { hasAttributes, hasAttribute } from './util/attribute';
 import hasTagName from './util/hasTagName';
@@ -43,16 +44,16 @@ const getElementInTstamp = (tstampGetter, measureGetter) => (element) => {
 };
 
 export const startElement = [{
-  condition: hasAttribute('startId'),
-  traversal: elementFromAttribute('startId'),
+  condition: hasAttribute('startid'),
+  traversal: elementFromAttribute('startid'),
 }, {
   condition: hasAttribute('tstamp'),
   traversal: getElementInTstamp(e => _.startTstamp(e), first),
 }];
 
 export const endElement = [{
-  condition: hasAttribute('endId'),
-  traversal: elementFromAttribute('endId'),
+  condition: hasAttribute('endid'),
+  traversal: elementFromAttribute('endid'),
 }, {
   condition: hasAttribute('tstamp2'),
   traversal: getElementInTstamp(e => _.endTstamp(e), last),
@@ -115,17 +116,33 @@ export const spannedDurationals =
     },
   }];
 
-export const spannedMeasures = (element) => {
-  const measureOffset = _.measureOffset(element);
-  const result = _(element)
-    .score()
-    .measures()
-    .thru((measures) => {
-      const startIndex = findIndex(measure => measure === _.measure(element), measures);
-      const endIndex = startIndex + measureOffset;
-      return slice(startIndex, endIndex + 1, measures);
-    })
-    .value();
+export const spannedMeasures = [{
+  condition: hasAttribute('endid'),
+  traversal: (element) => {
+    const allMeasures = _(element).score().measures().value();
+    const startMeasure = _(element).measure().value();
+    const endMeasure = _(element).endElement().measure().value();
+    const result = flow(
+      dropWhile(measure => measure !== startMeasure),
+      dropRightWhile(measure => measure !== endMeasure)
+    )(allMeasures);
 
-  return result;
-};
+    return result;
+  },
+}, {
+  condition: hasAttribute('tstamp2'),
+  traversal: (element) => {
+    const measureOffset = _.measureOffset(element);
+    const result = _(element)
+      .score()
+      .measures()
+      .thru((measures) => {
+        const startIndex = findIndex(measure => measure === _.measure(element), measures);
+        const endIndex = startIndex + measureOffset;
+        return slice(startIndex, endIndex + 1, measures);
+      })
+      .value();
+
+    return result;
+  },
+}];
