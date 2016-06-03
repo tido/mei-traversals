@@ -79,13 +79,32 @@ export const tstamp =
     traversal: constant(1),
   }];
 
-export const startTstamp = tstamp;
-export const endTstamp = flow(
-  getAttribute('tstamp2'),
-  split('m+'),
-  last,
-  Number
-);
+export const startTstamp = [{
+  condition: hasAttribute('startid'),
+  traversal: element => {
+    const startElement = _.startElement(element);
+    return _.tstamp(startElement);
+  },
+}, {
+  condition: hasAttribute('tstamp'),
+  traversal: element => _.tstamp(element),
+}];
+
+export const endTstamp = [{
+  condition: hasAttribute('endid'),
+  traversal: element => {
+    const endElement = _.endElement(element);
+    return _.tstamp(endElement);
+  },
+}, {
+  condition: hasAttribute('tstamp2'),
+  traversal: flow(
+    getAttribute('tstamp2'),
+    split('m+'),
+    last,
+    Number
+  ),
+}];
 
 export const measureOffset = flow(
   getAttribute('tstamp2'),

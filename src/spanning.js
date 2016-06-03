@@ -65,7 +65,6 @@ export const spannedDurationals =
     traversal: (element) => {
       // TODO extend to support spanning elements across staves
       const startElement = _.startElement(element);
-      const endElement = _.endElement(element);
 
       const spannedMeasures = _(element).spannedMeasures().value();
       const staffN = _.staffN(startElement);
@@ -77,11 +76,11 @@ export const spannedDurationals =
       const durationals = flatMap(cond([
         [
           eq(first(spannedMeasures)),
-          flow(getDescendantDurationals, filter(flow(_.tstamp, lte(_.tstamp(startElement))))),
+          flow(getDescendantDurationals, filter(flow(_.tstamp, lte(_.startTstamp(element))))),
         ],
         [
           eq(last(spannedMeasures)),
-          flow(getDescendantDurationals, filter(flow(_.tstamp, gte(_.tstamp(endElement))))),
+          flow(getDescendantDurationals, filter(flow(_.tstamp, gte(_.endTstamp(element))))),
         ],
         [
           constant(true),
