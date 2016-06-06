@@ -1,6 +1,6 @@
 import {
   last, isEqual, partial, flow, map, flatten,
-  flattenDeep, flatMap, reduce, curry, assign,
+  flattenDeep, flatMap, reduce, curry, assign, keys,
 } from 'lodash/fp';
 
 import _ from '.';
@@ -103,13 +103,26 @@ const createComponent = (textToGlyphMap, font, token) =>
     : { type: 'text', content: token, ...font };
 
 const getFontSpec = (element) => {
-  if (element.getAttribute('fontstyle') === 'italic' ||
-      element.getAttribute('rend') === 'italic') {
-    return { font: { fontStyle: 'italic' } };
-  } else if (element.getAttribute('fontstyle') === 'normal') {
-    return { font: { fontStyle: '' } };
+  const fontSpec = {};
+
+  const fontStyle = element.getAttribute('fontstyle');
+  const fontWeight = element.getAttribute('fontweight');
+  const rend = element.getAttribute('rend');
+
+  if (fontStyle) fontSpec.fontStyle = fontStyle;
+  if (fontWeight) fontSpec.fontWeight = fontWeight;
+  if (rend) {
+    const tokens = rend.split(/\s/);
+    tokens.forEach(token => {
+      if (token === 'italic') {
+        fontSpec.fontStyle = 'italic';
+      } else if (token === 'bold') {
+        fontSpec.fontWeight = 'bold';
+      }
+    });
   }
-  return {};
+
+  return keys(fontSpec).length ? { font: fontSpec } : {};
 };
 
 const combineSubsequentTexts = (result, component) => {
